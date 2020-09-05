@@ -12,8 +12,9 @@ import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 public class JSONReader {
+    DatabaseHandler databaseHandler = new DatabaseHandler();
 
-    public static void read(String fileName) {
+    public void read(String fileName) {
         BufferedReader br = null;
 
         try {
@@ -24,13 +25,13 @@ public class JSONReader {
                 if (sCurrentLine.contains("[")) {
                     sCurrentLine = br.readLine().replace("\"", "").replace(",", ""); //read first number
                     while (!(sCurrentLine.contains("]"))) {
-                        System.out.println(sCurrentLine);
+                        databaseHandler.insertIntoRedis("activeTaxpayer", sCurrentLine);
                         sCurrentLine = br.readLine().replace("\"", "").replace(",", "");
                     }
                     break;
                 }
             }
-
+            databaseHandler.closeDatabaseConnection();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -41,5 +42,4 @@ public class JSONReader {
             }
         }
     }
-
 }

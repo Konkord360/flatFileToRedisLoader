@@ -23,12 +23,14 @@ public class App {
 
         String dateFileName = formatter.format(calendar.getTime());
         final String fileURL = "https://plikplaski.mf.gov.pl/pliki/"  + dateFileName + ".7z";
-        final String downloadLocation = "D:\\Projects\\downloadLocation\\";
+        final String downloadLocation = "/home/osboxes/fileDownload/";
         final String fileName = "file.7z";
+        JSONReader jsonReader = new JSONReader();
 
-//        FileHandler.downloadFile(fileURL, downloadLocation.concat(fileName));
-//        FileHandler.unzipFile(downloadLocation.concat(fileName), downloadLocation);
-//        JSONReader.read(dateFileName.concat(".7z"));
-        DatabaseHandler.openDatabase();
+        FileHandler.downloadFile(fileURL, downloadLocation.concat(fileName));
+        FileHandler.unzipFile(downloadLocation.concat(fileName), downloadLocation);
+        jsonReader.read(dateFileName.concat(".json"));
+        //DatabaseHandler databaseHandler = new DatabaseHandler();
+
     }
 }

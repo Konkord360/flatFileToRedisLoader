@@ -12,10 +12,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class FileHandler {
-    public static void rewriteFileToRedis(){
-
-    }
-
 
     public static boolean downloadFile(String URL, String downloadPath) {
         try {
