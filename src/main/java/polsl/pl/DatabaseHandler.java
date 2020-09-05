@@ -12,7 +12,7 @@ public class DatabaseHandler {
     }
 
     public void insertIntoRedis(String key, String value) {
-        jedis.sadd(key, value);
+        jedis.set(key, value);
     }
 
     public void closeDatabaseConnection() {

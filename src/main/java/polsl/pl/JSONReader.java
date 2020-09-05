@@ -25,7 +25,7 @@ public class JSONReader {
                 if (sCurrentLine.contains("[")) {
                     sCurrentLine = br.readLine().replace("\"", "").replace(",", ""); //read first number
                     while (!(sCurrentLine.contains("]"))) {
-                        databaseHandler.insertIntoRedis("activeTaxpayer", sCurrentLine);
+                        databaseHandler.insertIntoRedis(sCurrentLine, null);
                         sCurrentLine = br.readLine().replace("\"", "").replace(",", "");
                     }
                     break;
