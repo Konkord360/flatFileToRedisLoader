@@ -13,7 +13,7 @@ To run this program, firstly go to the directory with pom file and run:
     mvn clean compile assembly:single
 ```
 
-after that run 
+after then run 
 ```bash
    cd target
    java -jar vatFlatFileToRedis-1.0-jar-with-dependencies.jar
