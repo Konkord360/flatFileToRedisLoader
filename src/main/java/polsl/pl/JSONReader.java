@@ -1,20 +1,17 @@
 package polsl.pl;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
+import javax.xml.crypto.Data;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.concurrent.TimeUnit;
 
 public class JSONReader {
     DatabaseHandler databaseHandler = new DatabaseHandler();
+    public JSONReader(DatabaseHandler databaseHandler){
+        this.databaseHandler = databaseHandler;
+    }
 
-    public void read(String fileName) {
+    public void readAndRewrite(String fileName) {
         BufferedReader br = null;
 
         try {
@@ -23,10 +20,10 @@ public class JSONReader {
 
             while ((sCurrentLine = br.readLine()) != null) {
                 if (sCurrentLine.contains("[")) {
-                    sCurrentLine = br.readLine().replace("\"", "").replace(",", ""); //read first number
+                    sCurrentLine = br.readLine().replace("\"", "").replace(",", "").trim(); //read first number
                     while (!(sCurrentLine.contains("]"))) {
-                        databaseHandler.insertIntoRedis(sCurrentLine, null);
-                        sCurrentLine = br.readLine().replace("\"", "").replace(",", "");
+                        databaseHandler.insertIntoRedis(sCurrentLine, "true");
+                        sCurrentLine = br.readLine().replace("\"", "").replace(",", "").trim();
                     }
                     break;
                 }

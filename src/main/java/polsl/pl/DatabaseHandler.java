@@ -2,10 +2,8 @@ package polsl.pl;
 
 import redis.clients.jedis.Jedis;
 
-import java.util.Set;
-
 public class DatabaseHandler {
-    Jedis jedis;
+    final Jedis jedis;
 
     public DatabaseHandler() {
         this.jedis = new Jedis("localhost", 6379);
@@ -19,7 +17,16 @@ public class DatabaseHandler {
         jedis.close();
     }
 
+    public String getKeyValue(String key){
+        return jedis.get(key);
+    }
+
     public void deleteKeyValues(String key){
         jedis.del(key);
     }
+
+    public void clearDatabase(){
+        jedis.flushAll();
+    }
+
 }

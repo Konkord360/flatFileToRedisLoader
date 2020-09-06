@@ -1,19 +1,8 @@
 package polsl.pl;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
-/**
- * Hello world!
- */
 
 public class App {
     public static void main(String[] args) {
@@ -22,15 +11,32 @@ public class App {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 
         String dateFileName = formatter.format(calendar.getTime());
-        final String fileURL = "https://plikplaski.mf.gov.pl/pliki/"  + dateFileName + ".7z";
-        final String downloadLocation = "/home/osboxes/fileDownload/";
-        final String fileName = "file.7z";
-        JSONReader jsonReader = new JSONReader();
+        String fileURL = "https://plikplaski.mf.gov.pl/pliki/"  + dateFileName + ".7z";
+        String downloadLocation = "/home/osboxes/fileDownload/";
+        String fileName = "file.7z";
+
+        if(args.length > 0){
+            downloadLocation = args[0];
+            System.out.println(downloadLocation);
+        }
+        if(args.length >= 2){
+            fileName = args[1];
+            System.out.println(fileName);
+        }
+        if(args.length >= 3){
+            fileURL = args[2];
+            System.out.println(fileURL);
+        }
+
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        databaseHandler.clearDatabase();
+        JSONReader jsonReader = new JSONReader(databaseHandler);
 
         FileHandler.downloadFile(fileURL, downloadLocation.concat(fileName));
-        FileHandler.unzipFile(downloadLocation.concat(fileName), downloadLocation);
-        jsonReader.read(dateFileName.concat(".json"));
-        //DatabaseHandler databaseHandler = new DatabaseHandler();
-
+        FileHandler.unzipFile(downloadLocation.concat(fileName));
+        jsonReader.readAndRewrite(dateFileName.concat(".json"));
+        databaseHandler.closeDatabaseConnection();
+        FileHandler.deleteFile(dateFileName.concat(".json"));
+        FileHandler.deleteFile(dateFileName.concat(".json.sha512sum"));
     }
 }

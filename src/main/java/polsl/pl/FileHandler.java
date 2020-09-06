@@ -8,8 +8,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class FileHandler {
 
@@ -24,7 +22,7 @@ public class FileHandler {
         return true;
     }
 
-    public static boolean unzipFile(String zipFilePath, String destDir) {
+    public static boolean unzipFile(String zipFilePath) {
         try {
             SevenZFile sevenZFile = new SevenZFile(new File(zipFilePath));
             SevenZArchiveEntry entry = sevenZFile.getNextEntry();
@@ -43,5 +41,10 @@ public class FileHandler {
             return false;
         }
         return true;
+    }
+
+    public static boolean deleteFile(String fileName){
+        File f = new File(fileName);
+        return f.delete();
     }
 }
