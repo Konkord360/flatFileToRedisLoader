@@ -7,7 +7,6 @@ import java.util.Calendar;
 public class App {
     public static void main(String[] args) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 
         String dateFileName = formatter.format(calendar.getTime());
@@ -30,7 +29,7 @@ public class App {
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
         databaseHandler.clearDatabase();
-        JSONReader jsonReader = new JSONReader(databaseHandler);
+        JSONReader jsonReader = new JSONReader(databaseHandler, dateFileName);
 
         FileHandler.downloadFile(fileURL, downloadLocation.concat(fileName));
         FileHandler.unzipFile(downloadLocation.concat(fileName));
