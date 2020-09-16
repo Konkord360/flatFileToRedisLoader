@@ -6,7 +6,7 @@ public class DatabaseHandler {
     final Jedis jedis;
 
     public DatabaseHandler() {
-        this.jedis = new Jedis("localhost", 6379);
+        this.jedis = new Jedis("redis", 6379);
     }
 
     public void insertIntoRedis(String key, String value) {

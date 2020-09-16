@@ -23,7 +23,6 @@ public class JSONReader {
             StringBuilder headerRedis = new StringBuilder("");
             StringBuilder masksRedis = new StringBuilder("");
             br = new BufferedReader(new FileReader(fileName));
-
             while ((sCurrentLine = br.readLine()) != null) {
                 if (sCurrentLine.contains("naglowek")) {
                     do {
