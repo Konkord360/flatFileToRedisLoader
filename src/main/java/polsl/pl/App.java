@@ -30,7 +30,7 @@ public class App {
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
         databaseHandler.clearDatabase();
-        JSONReader jsonReader = new JSONReader(databaseHandler);
+        JSONReader jsonReader = new JSONReader(databaseHandler, dateFileName);
 
         FileHandler.downloadFile(fileURL, downloadLocation.concat(fileName));
         FileHandler.unzipFile(downloadLocation.concat(fileName));
